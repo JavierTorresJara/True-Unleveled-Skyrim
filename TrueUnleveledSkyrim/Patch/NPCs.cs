@@ -163,14 +163,14 @@ namespace TrueUnleveledSkyrim.Patch
         // Gives all NPCs that revolve around the player a static level and applies level modifiers.
         private static bool SetStaticLevel(Npc npc, ILinkCache linkCache)
         {
-            bool wasChanged = true;
+            bool wasChanged = false;
 
-
+            if (IsFollower(npc) == true)
+            {
                 float lvlMult = 1;
                 short lvlMin = 1;
                 short lvlMax = 75;
 
-            npc.Configuration.Flags.AsEnumerable().Append(NpcConfiguration.Flag.AutoCalcStats);
                 npc.Configuration.CalcMinLevel = lvlMin;
                 npc.Configuration.CalcMaxLevel = lvlMax;
 
@@ -178,8 +178,8 @@ namespace TrueUnleveledSkyrim.Patch
                 {
                     LevelMult = lvlMult
                 };
-          
-            
+                wasChanged = true;
+            }
 
             return wasChanged;
         }
