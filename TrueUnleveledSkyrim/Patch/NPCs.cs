@@ -163,7 +163,7 @@ namespace TrueUnleveledSkyrim.Patch
         // Gives all NPCs that revolve around the player a static level and applies level modifiers.
         private static bool SetStaticLevel(Npc npc, ILinkCache linkCache)
         {
-            bool wasChanged = false;
+            bool wasChanged = true;
 
 
                 float lvlMult = 1;
