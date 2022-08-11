@@ -192,7 +192,7 @@ namespace TrueUnleveledSkyrim.Patch
                 wasChanged = true;
             }
 
-            return true;
+            return wasChanged;
         }
 
         // Changes the inventory of NPCs to have weaker or stronger versions of their equipment lists based on their level.
