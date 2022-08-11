@@ -539,10 +539,10 @@ namespace TrueUnleveledSkyrim.Patch
                 Npc npcCopy = npcGetter.DeepCopy();
 
                 wasChanged |= SetStaticLevel(npcCopy, Patcher.LinkCache);
-                wasChanged |= ChangeEquipment(npcCopy, state, Patcher.LinkCache);
-                wasChanged |= RelevelNPCSkills(npcCopy, Patcher.LinkCache);
-                wasChanged |= DistributeNPCPerks(npcCopy, Patcher.LinkCache);
-                wasChanged |= SetFollowerScaling(npcCopy);
+                //wasChanged |= ChangeEquipment(npcCopy, state, Patcher.LinkCache);
+                //wasChanged |= RelevelNPCSkills(npcCopy, Patcher.LinkCache);
+                //wasChanged |= DistributeNPCPerks(npcCopy, Patcher.LinkCache);
+                //wasChanged |= SetFollowerScaling(npcCopy);
 
                 ++processedRecords;
                 if (processedRecords % 100 == 0)
