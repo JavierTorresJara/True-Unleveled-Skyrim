@@ -165,8 +165,7 @@ namespace TrueUnleveledSkyrim.Patch
         {
             bool wasChanged = false;
 
-            if (IsFollower(npc)) 
-            {
+
                 float lvlMult = 1;
                 short lvlMin = 1;
                 short lvlMax = 75;
@@ -179,8 +178,8 @@ namespace TrueUnleveledSkyrim.Patch
                 {
                     LevelMult = lvlMult
                 };
-                wasChanged = true;
-            }
+          
+            
 
             return wasChanged;
         }
