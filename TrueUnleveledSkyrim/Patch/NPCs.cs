@@ -170,7 +170,7 @@ namespace TrueUnleveledSkyrim.Patch
                 short lvlMin = 1;
                 short lvlMax = 75;
 
-                npc.Configuration.Flags.SetFlag(NpcConfiguration.Flag.AutoCalcStats, true);
+            npc.Configuration.Flags.AsEnumerable().Append(NpcConfiguration.Flag.AutoCalcStats);
                 npc.Configuration.CalcMinLevel = lvlMin;
                 npc.Configuration.CalcMaxLevel = lvlMax;
 
