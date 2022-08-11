@@ -164,8 +164,19 @@ namespace TrueUnleveledSkyrim.Patch
         private static bool SetStaticLevel(Npc npc, ILinkCache linkCache)
         {
             bool wasChanged = false;
+            bool isFollower = false;
 
-            if (IsFollower(npc) == true)
+            foreach (RankPlacement rankPlacement in npc.Factions)
+            {
+                if (rankPlacement.Faction.Equals(Skyrim.Faction.PotentialFollowerFaction) || rankPlacement.Faction.Equals(Skyrim.Faction.PotentialHireling))
+                {
+                    isFollower = true;
+                    break;
+                }
+            }
+
+
+            if (isFollower == true)
             {
                 float lvlMult = 1;
                 short lvlMin = 1;
@@ -181,7 +192,7 @@ namespace TrueUnleveledSkyrim.Patch
                 wasChanged = true;
             }
 
-            return wasChanged;
+            return true;
         }
 
         // Changes the inventory of NPCs to have weaker or stronger versions of their equipment lists based on their level.
