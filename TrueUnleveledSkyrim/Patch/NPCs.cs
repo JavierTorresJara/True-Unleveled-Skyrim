@@ -163,32 +163,23 @@ namespace TrueUnleveledSkyrim.Patch
         // Gives all NPCs that revolve around the player a static level and applies level modifiers.
         private static bool SetStaticLevel(Npc npc, ILinkCache linkCache)
         {
-            GetLevelMultiplier(npc, linkCache, out short levelModAdd, out float levelModMult);
-            bool wasChanged = GetNPCLevelByEDID(npc, levelModAdd, levelModMult) || GetNPCLevelByFaction(npc, linkCache, levelModAdd, levelModMult);
+            bool wasChanged = false;
 
-            if (wasChanged) return true;
-            if (npc.Configuration.Level is PcLevelMult pcLevelMult)
+            if (IsFollower(npc)) 
             {
-                float lvlMult = (pcLevelMult.LevelMult <= 0) ? 1 : pcLevelMult.LevelMult;
-                short lvlMin = npc.Configuration.CalcMinLevel; short lvlMax = npc.Configuration.CalcMaxLevel;
+                float lvlMult = 1;
+                short lvlMin = 1;
+                short lvlMax = 75;
 
-                bool isUnique = npc.Configuration.Flags.HasFlag(NpcConfiguration.Flag.Unique);
-                if(isUnique && (lvlMax == 0 || lvlMax >= 100))
-                        lvlMax = 100;
-                else if(lvlMax == 0 || lvlMax > 80)
-                    lvlMax = 80;
+                npc.Configuration.Flags.SetFlag(NpcConfiguration.Flag.AutoCalcStats, true);
+                npc.Configuration.CalcMinLevel = lvlMin;
+                npc.Configuration.CalcMaxLevel = lvlMax;
 
-                wasChanged = true;
-                npc.Configuration.Level = new NpcLevel()
+                npc.Configuration.Level = new PcLevelMult
                 {
-                    Level = (short)(Math.Round((lvlMin + lvlMax) * lvlMult * levelModMult / 2) + levelModAdd)
+                    LevelMult = lvlMult
                 };
-            }
-            else if(npc.Configuration.Level is NpcLevel npcLevel)
-            {
-                short prevLevel = npcLevel.Level;
-                npcLevel.Level = (short)Math.Max(npcLevel.Level * levelModMult + levelModAdd, 1); 
-                wasChanged = npcLevel.Level != prevLevel;
+                wasChanged = true;
             }
 
             return wasChanged;
