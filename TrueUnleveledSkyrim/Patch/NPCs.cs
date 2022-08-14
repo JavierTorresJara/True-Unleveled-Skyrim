@@ -210,7 +210,9 @@ namespace TrueUnleveledSkyrim.Patch
 
                 npc.Configuration.CalcMinLevel = lvlMin;
                 npc.Configuration.CalcMaxLevel = lvlMax;
-                npc.MajorFlags.SetFlag(NpcConfiguration.Flag.AutoCalcStats, true);
+                //var npcPatch = state.PatchMod.Npcs.GetOrAddAsOverride(npc);
+                npc.Configuration.Flags |= NpcConfiguration.Flag.AutoCalcStats;
+
                 npc.Configuration.Level = new PcLevelMult
                 {
                     LevelMult = lvlMult
