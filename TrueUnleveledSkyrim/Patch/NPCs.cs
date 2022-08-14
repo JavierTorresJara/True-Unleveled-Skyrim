@@ -165,9 +165,18 @@ namespace TrueUnleveledSkyrim.Patch
         {
             bool wasChanged = false;
             bool isFollower = false;
+            bool isGuard = false;
 
             foreach (RankPlacement rankPlacement in npc.Factions)
             {
+                if (rankPlacement.Faction.Equals(Skyrim.Faction.CWImperialFaction) || rankPlacement.Faction.Equals(Skyrim.Faction.CWSonsFaction)
+                    || rankPlacement.Faction.Equals(Skyrim.Faction.CWImperialFactionNPC) || rankPlacement.Faction.Equals(Skyrim.Faction.CWSonsFactionNPC)
+                    || rankPlacement.Faction.Equals(Skyrim.Faction.GuardDialogueFaction))
+                {
+                    isGuard = true;
+                    break;
+                }
+
                 if (rankPlacement.Faction.Equals(Skyrim.Faction.PotentialFollowerFaction) || rankPlacement.Faction.Equals(Skyrim.Faction.PotentialHireling))
                 {
                     isFollower = true;
@@ -180,10 +189,28 @@ namespace TrueUnleveledSkyrim.Patch
             {
                 float lvlMult = 1;
                 short lvlMin = 1;
-                short lvlMax = 75;
+                short lvlMax = 0;
 
                 npc.Configuration.CalcMinLevel = lvlMin;
                 npc.Configuration.CalcMaxLevel = lvlMax;
+
+                npc.Configuration.Level = new PcLevelMult
+                {
+                    LevelMult = lvlMult
+                };
+                wasChanged = true;
+            }
+
+            if (isGuard == true)
+            {
+                RemoveOldPerks(npc);
+                float lvlMult = 1;
+                short lvlMin = 1;
+                short lvlMax = 0;
+
+                npc.Configuration.CalcMinLevel = lvlMin;
+                npc.Configuration.CalcMaxLevel = lvlMax;
+                npc.Perks!.Add(new PerkPlacement() { Perk = Skyrim.Perk.crReduceDamage075, Rank = 1 });
 
                 npc.Configuration.Level = new PcLevelMult
                 {
