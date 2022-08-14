@@ -203,14 +203,13 @@ namespace TrueUnleveledSkyrim.Patch
 
             if (isGuard == true)
             {
-                RemoveOldPerks(npc);
+                //RemoveOldPerks(npc);
                 float lvlMult = 1;
                 short lvlMin = 1;
                 short lvlMax = 0;
 
                 npc.Configuration.CalcMinLevel = lvlMin;
                 npc.Configuration.CalcMaxLevel = lvlMax;
-                npc.Perks!.Add(new PerkPlacement() { Perk = Skyrim.Perk.crReduceDamage075, Rank = 1 });
 
                 npc.Configuration.Level = new PcLevelMult
                 {
